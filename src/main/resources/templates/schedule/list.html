@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>勤務表管理</title>
-
-    <!-- iOS Web App対応 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="勤怠管理">
-    <link rel="apple-touch-icon" href="/images/app-icon.png">
+    <title>勤務表管理 | 勤怠管理システム</title>
 
     <!-- 外部CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/list.css}" />
 </head>
 <body>
-<header>
-    <h1>勤怠管理システム</h1>
+<header class="header">
+    <div class="header-right">
+        <span>こんにちは <strong th:text="${username}">ユーザー</strong> さん</span>
+        <a th:href="@{/logout}" class="logout-btn">ログアウト</a>
+    </div>
 </header>
 
-<main>
+<main class="main-content">
     <!-- 新規勤務追加フォーム -->
     <section class="form-section">
-		<form th:action="@{/schedule/add}" method="post">
-		    <input type="date" name="workDate" required>
-		    <input type="time" name="startTime" required>
-		    <input type="time" name="endTime" required>
-		    <button type="submit">追加</button>
-		</form>
+        <h2>新規勤務追加</h2>
+        <form th:action="@{/schedule/add}" method="post">
+            <input type="date" name="workDate" required>
+            <input type="time" name="startTime" required>
+            <input type="time" name="endTime" required>
+            <button type="submit" class="primary-btn">追加</button>
+        </form>
     </section>
 
     <!-- カレンダー表示 -->
     <section class="calendar-section">
+        <h2>勤務表カレンダー</h2>
         <div class="calendar-header">
             <div>日</div><div>月</div><div>火</div><div>水</div>
             <div>木</div><div>金</div><div>土</div>
@@ -49,9 +49,5 @@
     </section>
 </main>
 
-<!-- 必要に応じてJS -->
-<script>
-    // カレンダーの日付をタップで簡単にスケジュール追加などの拡張が可能
-</script>
 </body>
 </html>

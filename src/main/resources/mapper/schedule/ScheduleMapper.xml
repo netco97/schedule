@@ -5,14 +5,35 @@
 
 <mapper namespace="com.example.demo.schedule.mapper.ScheduleMapper">
 
+    <!-- resultMap 定義 -->
+    <resultMap id="scheduleMap" type="com.example.demo.schedule.domain.Schedule">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="workDate" column="work_date"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+    </resultMap>
+
+    <!-- スケジュール追加 -->
     <insert id="insert" parameterType="com.example.demo.schedule.domain.Schedule">
         INSERT INTO schedule (username, work_date, start_time, end_time)
         VALUES (#{username}, #{workDate}, #{startTime}, #{endTime})
     </insert>
 
-    <select id="findAll" resultType="com.example.demo.schedule.domain.Schedule">
+    <!-- スケジュール照会 -->
+    <select id="findAll" resultMap="scheduleMap">
         SELECT id, username, work_date, start_time, end_time
         FROM schedule
     </select>
 
+    <!-- 最近N個照会 -->
+    <select id="findRecentSchedules" parameterType="map" resultMap="scheduleMap">
+        SELECT id, username, work_date, start_time, end_time
+        FROM schedule
+        WHERE username = #{username}
+        ORDER BY work_date DESC
+        LIMIT #{limit}
+    </select>
+
 </mapper>
+

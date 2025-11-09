@@ -21,4 +21,9 @@ public class ScheduleService {
     public List<Schedule> getAllSchedules() {
         return scheduleMapper.findAll();
     }
+    
+    //最近勤務表　N
+    public List<Schedule> getRecentSchedules(int limit,String username) {
+        return scheduleMapper.findRecentSchedules(limit,username);
+    }
 }

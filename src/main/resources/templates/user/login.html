@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>ログイン | 勤務表アプリ</title>
+
+    <!-- フォントの読み込み -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600&family=Pretendard:wght@500&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Noto Sans JP', sans-serif;
+            font-family: 'Pretendard', 'Noto Sans JP', sans-serif;
             background: #f7f9fc;
             display: flex;
             justify-content: center;
@@ -21,7 +25,10 @@
             width: 360px;
             text-align: center;
         }
-        h2 { margin-bottom: 25px; color: #333; }
+        h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
         input[type="text"], input[type="password"] {
             width: 100%;
             padding: 12px;
@@ -40,10 +47,34 @@
             cursor: pointer;
             font-size: 15px;
         }
-        button:hover { background: #45a049; }
-        .link { margin-top: 15px; font-size: 14px; }
-        .link a { color: #007bff; text-decoration: none; }
-        .link a:hover { text-decoration: underline; }
+        button:hover {
+            background: #45a049;
+        }
+        .link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        /* エラーメッセージのスタイル */
+        .error-message {
+            color: red;
+            font-size: 13px;
+            animation: fadeOut 2s forwards;
+        }
+
+        /* 2秒間でフェードアウト */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
     </style>
 </head>
 <body>
@@ -51,17 +82,21 @@
 <div class="login-container">
     <h2>ログイン</h2>
 
-    <!-- ?error がある場合、ポップアップでメッセージ表示 -->
-    <script th:if="${param.error}" th:inline="javascript">
-        alert('会員登録を進めてください。');
-    </script>
+    <!-- エラーメッセージ表示 -->
+    <div th:if="${param.error}">
+        <p th:if="${param.error[0] eq 'bad_password'}" class="error-message">パスワードが間違っています。</p>
+        <p th:if="${param.error[0] eq 'no_user'}" class="error-message">存在しないユーザーです。会員登録してください。</p>
+        <p th:if="${param.error[0] eq 'unknown'}" class="error-message">ログインエラーが発生しました。</p>
+    </div>
 
+    <!-- ログインフォーム -->
     <form th:action="@{/login}" method="post">
         <input type="text" name="username" placeholder="ユーザー名" required>
         <input type="password" name="password" placeholder="パスワード" required>
         <button type="submit">ログイン</button>
     </form>
 
+    <!-- 会員登録リンク -->
     <div class="link">
         <p>アカウントをお持ちでないですか？ <a th:href="@{/join}">新規登録</a></p>
     </div>

@@ -2,24 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ホーム</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>ホーム | 勤怠管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
-<header>
-    <div style="text-align:right;">
-        こんにちは <span th:text="${username}">ユーザー</span> さん
-        <a th:href="@{/logout}">ログアウト</a>
+<header class="home-header">
+    <div class="home-header-right">
+        <span>こんにちは <strong th:text="${username}">ユーザー</strong> さん</span>
+        <a th:href="@{/logout}" class="logout-btn">ログアウト</a>
     </div>
 </header>
 
-<h1>勤怠管理システムへようこそ！</h1>
+<main class="home-main">
+    <h1>勤怠管理システムへようこそ！</h1>
 
-<!-- 스케줄 관리로 이동 버튼 -->
-<div style="text-align:center; margin-top:30px;">
-    <a th:href="@{/schedule/list}">
-        <button style="padding:10px 20px; font-size:16px;">スケジュール管理へ</button>
-    </a>
-</div>
+    <!-- 근무표 등록 버튼 -->
+    <div class="home-buttons">
+        <a th:href="@{/schedule/list}">
+            <button class="primary-btn">勤務表登録へ</button>
+        </a>
+    </div>
+
+    <!-- 최근 등록된 근무표 요약 -->
+    <section class="recent-schedules">
+        <h2>最近の勤務表</h2>
+        <div th:each="s : ${recentSchedules}" class="schedule-card">
+            <p th:text="${s.workDate} + '：' + ${s.startTime} + '〜' + ${s.endTime}">2025-11-09：08:00〜17:00</p>
+        </div>
+        <div th:if="${#lists.isEmpty(recentSchedules)}" class="no-schedule">
+            登録された勤務表はありません。
+        </div>
+    </section>
+</main>
 </body>
 </html>
