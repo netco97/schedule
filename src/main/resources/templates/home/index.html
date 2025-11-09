@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>ホーム</title>
-    <!-- 外部CSS読み込み -->
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1 style="text-align:center;">勤怠管理システムへようこそ！</h1>
+<header>
+    <div style="text-align:right;">
+        こんにちは <span th:text="${username}">ユーザー</span> さん
+        <a th:href="@{/logout}">ログアウト</a>
+    </div>
+</header>
 
-<!-- メッセージ表示 -->
-<p style="text-align:center;" th:text="${message}">メッセージ</p>
+<h1>勤怠管理システムへようこそ！</h1>
 
-<!-- 勤務表ページへの移動ボタン -->
-<div style="text-align:center; margin-top:20px;">
-    <a th:href="@{/}" class="btn">勤務表を見る</a>
+<!-- 스케줄 관리로 이동 버튼 -->
+<div style="text-align:center; margin-top:30px;">
+    <a th:href="@{/schedule/list}">
+        <button style="padding:10px 20px; font-size:16px;">スケジュール管理へ</button>
+    </a>
 </div>
 </body>
 </html>

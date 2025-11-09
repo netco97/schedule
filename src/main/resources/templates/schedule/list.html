@@ -21,12 +21,12 @@
 <main>
     <!-- 新規勤務追加フォーム -->
     <section class="form-section">
-        <form th:action="@{/add}" method="post">
-            <input type="date" name="workDate" required>
-            <input type="time" name="startTime" required>
-            <input type="time" name="endTime" required>
-            <button type="submit">追加</button>
-        </form>
+		<form th:action="@{/schedule/add}" method="post">
+		    <input type="date" name="workDate" required>
+		    <input type="time" name="startTime" required>
+		    <input type="time" name="endTime" required>
+		    <button type="submit">追加</button>
+		</form>
     </section>
 
     <!-- カレンダー表示 -->

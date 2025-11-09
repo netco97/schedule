@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.schedule.mapper.ScheduleMapper">
-<insert id="insert" parameterType="com.example.demo.schedule.domain.Schedule">
-    INSERT INTO schedule (work_date, start_time, end_time)
-    VALUES (#{workDate}, #{startTime}, #{endTime})
-</insert>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<select id="findAll" resultType="com.example.demo.schedule.domain.Schedule">
-    SELECT id, work_date, start_time, end_time
-    FROM schedule
-</select>
+<mapper namespace="com.example.demo.schedule.mapper.ScheduleMapper">
+
+    <insert id="insert" parameterType="com.example.demo.schedule.domain.Schedule">
+        INSERT INTO schedule (username, work_date, start_time, end_time)
+        VALUES (#{username}, #{workDate}, #{startTime}, #{endTime})
+    </insert>
+
+    <select id="findAll" resultType="com.example.demo.schedule.domain.Schedule">
+        SELECT id, username, work_date, start_time, end_time
+        FROM schedule
+    </select>
 
 </mapper>

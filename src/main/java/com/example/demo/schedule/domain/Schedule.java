@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 public class Schedule {
     private Long id;  // BIGINT
 
+    private String username; // ログイン ユーザー名
+
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate workDate;  // DATE
 

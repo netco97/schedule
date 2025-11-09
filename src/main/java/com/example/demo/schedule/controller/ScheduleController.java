@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -17,31 +18,31 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    // 勤務表ページ表示
-    @GetMapping("/")
+    // 勤務表一覧ページ表示
+    @GetMapping("/schedule/list")
     public String list(Model model) {
-        // すべてのスケジュール取得
         List<Schedule> schedules = scheduleService.getAllSchedules()
             .stream()
-            .filter(s -> s.getWorkDate() != null) // null安全
+            .filter(s -> s.getWorkDate() != null)
             .toList();
 
         model.addAttribute("schedules", schedules);
+        model.addAttribute("days", IntStream.rangeClosed(1, 30).boxed().toList());
 
-        // 1~30日の日付リストを作成
-        model.addAttribute("days", IntStream.rangeClosed(1,30).boxed().toList());
-
-        return "schedule/list"; // schedule/list.html を表示
+        return "schedule/list";
     }
 
     // 新しいスケジュール追加
-    @PostMapping("/add")
-    public String addSchedule(Schedule schedule) {
-        // workDateがnullの場合は今日の日付を設定
+    @PostMapping("/schedule/add")
+    public String addSchedule(Schedule schedule, Principal principal) {
+        // ログイン　ユーザー名をスケジュールに設定
+        schedule.setUsername(principal.getName());
+
         if (schedule.getWorkDate() == null) {
             schedule.setWorkDate(java.time.LocalDate.now());
         }
+
         scheduleService.addSchedule(schedule);
-        return "redirect:/"; // 再表示
+        return "redirect:/schedule/list";
     }
 }

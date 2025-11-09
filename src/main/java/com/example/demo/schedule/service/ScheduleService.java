@@ -4,7 +4,6 @@ import com.example.demo.schedule.domain.Schedule;
 import com.example.demo.schedule.mapper.ScheduleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
