@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ホーム</title>
+    <!-- 外部CSS読み込み -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1 style="text-align:center;">勤怠管理システムへようこそ！</h1>
+
+<!-- メッセージ表示 -->
+<p style="text-align:center;" th:text="${message}">メッセージ</p>
+
+<!-- 勤務表ページへの移動ボタン -->
+<div style="text-align:center; margin-top:20px;">
+    <a th:href="@{/}" class="btn">勤務表を見る</a>
+</div>
+</body>
+</html>

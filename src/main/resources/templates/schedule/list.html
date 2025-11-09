@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>勤務表管理</title>
+
+    <!-- iOS Web App対応 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="勤怠管理">
+    <link rel="apple-touch-icon" href="/images/app-icon.png">
+
+    <!-- 外部CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<header>
+    <h1>勤怠管理システム</h1>
+</header>
+
+<main>
+    <!-- 新規勤務追加フォーム -->
+    <section class="form-section">
+        <form th:action="@{/add}" method="post">
+            <input type="date" name="workDate" required>
+            <input type="time" name="startTime" required>
+            <input type="time" name="endTime" required>
+            <button type="submit">追加</button>
+        </form>
+    </section>
+
+    <!-- カレンダー表示 -->
+    <section class="calendar-section">
+        <div class="calendar-header">
+            <div>日</div><div>月</div><div>火</div><div>水</div>
+            <div>木</div><div>金</div><div>土</div>
+        </div>
+
+        <div class="calendar-body">
+            <div th:each="day : ${days}" class="calendar-day">
+                <span class="date-number" th:text="${day}">1</span>
+                <div th:each="s : ${schedules}" 
+                     th:if="${s.workDate != null and s.workDate.dayOfMonth == day}"
+                     class="schedule-item">
+                    <span th:text="${s.startTime} + '〜' + ${s.endTime}">08:00〜17:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- 必要に応じてJS -->
+<script>
+    // カレンダーの日付をタップで簡単にスケジュール追加などの拡張が可能
+</script>
+</body>
+</html>
